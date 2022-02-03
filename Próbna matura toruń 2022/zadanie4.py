@@ -65,7 +65,7 @@ for wiersz in range(100):
 wyniki.write(f'wiersze z najdluzszym ciagiem: {wiersze_z_najdluzszym_ciagiem}\n'
              f'dlugosc ciagu: {the_max_dlugosc_ciagu}\n\n')
 
-#ZADANIE 4.3sd
+#ZADANIE 4.3
 def dlugosc_setu_w_wierszu(wiersz, kolumna):
     tablica_liter.clear()
     tablica_liter.append(wykreslanka[wiersz][kolumna])

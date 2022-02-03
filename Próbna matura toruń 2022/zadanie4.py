@@ -65,15 +65,14 @@ for wiersz in range(100):
 wyniki.write(f'wiersze z najdluzszym ciagiem: {wiersze_z_najdluzszym_ciagiem}\n'
              f'dlugosc ciagu: {the_max_dlugosc_ciagu}\n\n')
 
-#ZADANIE 4.3
-def dlugosc_setu_w_wierszu(wiersz, kolumna):
-    tablica_liter.clear()
-    tablica_liter.append(wykreslanka[wiersz][kolumna])
+def szerokosc_setu_w_wierszu(wiersz, kolumna):
+    maksymalna_mozliwa_tablica_liter.clear()
+    maksymalna_mozliwa_tablica_liter.append(wykreslanka[wiersz][kolumna])
     dlugosc = 1
     kolumna += 1
     while kolumna < 199:
-        if wykreslanka[wiersz][kolumna] not in tablica_liter:
-            tablica_liter.append(wykreslanka[wiersz][kolumna])
+        if wykreslanka[wiersz][kolumna] not in maksymalna_mozliwa_tablica_liter:
+            maksymalna_mozliwa_tablica_liter.append(wykreslanka[wiersz][kolumna])
             dlugosc += 1
             kolumna += 1
         else: break
@@ -85,36 +84,40 @@ def wysokosc_setu_w_kolumnie(wiersz, kolumna):
     wysokosc = 1
     wiersz += 1
     while wiersz < 99:
-        if czy_rozne_litery_na_dlugosci(wiersz, kolumna, dlugosc):
+        if czy_rozne_litery_na_dlugosci(wiersz, kolumna, szerokosc):
             wysokosc += 1
             wiersz += 1
         else: break
     return wysokosc
 
-def czy_rozne_litery_na_dlugosci(wiersz, kolumna, dlugosc):
-    for i in range(dlugosc):
+def czy_rozne_litery_na_dlugosci(wiersz, kolumna, szerokosc):
+    for i in range(szerokosc):
         if wykreslanka[wiersz][kolumna+i] not in tablica_liter:
             tablica_liter.append(wykreslanka[wiersz][kolumna+i])
         else: return False
     return True
 
-tablica_liter = []
+maksymalna_mozliwa_tablica_liter = []
 max_wymiary = 0
 for wiersz in range(100):
     for kolumna in range(200):
-        dlugosc = dlugosc_setu_w_wierszu(wiersz, kolumna)
-        wysokosc = wysokosc_setu_w_kolumnie(wiersz, kolumna)
-        pierwsza_komorka = (wiersz, kolumna)
-        if dlugosc*wysokosc > max_wymiary:
-            max_wymiary = dlugosc*wysokosc
-            max_dlugosc = dlugosc
-            max_wysokosc = wysokosc
-            max_pierwsza_komorka = pierwsza_komorka
+        maksymalna_mozliwa_szerokosc = szerokosc_setu_w_wierszu(wiersz, kolumna)
+        for i in range(1, maksymalna_mozliwa_szerokosc + 1):
+            tablica_liter = [i for i in maksymalna_mozliwa_tablica_liter[0:i]]
+            szerokosc = i
+            wysokosc = wysokosc_setu_w_kolumnie(wiersz, kolumna)
+            pierwsza_komorka = (wiersz, kolumna)
+            if szerokosc * wysokosc > max_wymiary:
+                max_wymiary = szerokosc * wysokosc
+                max_szerokosc = szerokosc
+                max_wysokosc = wysokosc
+                max_pierwsza_komorka = pierwsza_komorka
+            tablica_liter.clear()
 
 # print(max_pierwsza_komorka, max_dlugosc, max_wysokosc)
 wyniki.write(f'ZADANIE 4.3\n'
              f'wysokosc: {max_wysokosc}\n'
-             f'szerokosc: {max_dlugosc}\n'
+             f'szerokosc: {max_szerokosc}\n'
              f'wspolrzedne lewego gornego rogu: {max_pierwsza_komorka}')
 
 

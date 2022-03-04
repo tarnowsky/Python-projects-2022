@@ -1,10 +1,10 @@
 import pygame, sys
 
 #1280 x 1024 screen BIG WINDOW
-MAIN_BOARD = [['.' for nod in range(139)] for row in range(105)]
+# MAIN_BOARD = [['.' for nod in range(139)] for row in range(105)]
 
 # laptop screen SMALL WINDOW
-# MAIN_BOARD = [['.' for nod in range(85)] for row in range(64)]
+MAIN_BOARD = [['.' for nod in range(85)] for row in range(64)]
 
 
 class GameOfLife:
@@ -17,10 +17,10 @@ class GameOfLife:
             return plansza
 
         # 1280 x 1024 screen BIG WINDOW
-        nowa_plansza = [['.' for nod in range(139)] for row in range(105)]
+        # nowa_plansza = [['.' for nod in range(139)] for row in range(105)]
 
         # laptop screen SMALL WINDOW
-        # nowa_plansza = [['.' for nod in range(85)] for row in range(64)]
+        nowa_plansza = [['.' for nod in range(85)] for row in range(64)]
 
         for index_row, row in enumerate(plansza):
             for index_nod, nod in enumerate(row):
@@ -122,12 +122,12 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #BIG WINDOW
-screen_width = 1252
-screen_height = 946
+# screen_width = 1252
+# screen_height = 946
 
 #SMALL WINDOW
-# screen_width = 766
-# screen_height = 577
+screen_width = 766
+screen_height = 577
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 generacja = 1

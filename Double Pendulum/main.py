@@ -13,7 +13,7 @@ screen = pygame.display.set_mode((screen_width, screen_height), 0, 1)
 bg_color = 255, 255, 255
 
 x_offset = screen_width / 2
-y_offset = 150
+y_offset = 200
 
 # Main variables
 pendulum_color = pygame.Color(0, 0, 0)
@@ -76,7 +76,7 @@ m1 = 10
 m2 = 10
 
 a1 = pi / 2
-a2 = -pi / 2 
+a2 = pi
 a1_v = 0
 a2_v = 0
 a1_a = 0

@@ -30,6 +30,8 @@ class Ball(Block):
         self.paddles = paddles
         self.active = False
         self.score_time = 0
+        self.collision_count = 0
+
 
     def update(self):
         if self.active:
@@ -49,8 +51,10 @@ class Ball(Block):
             collision_paddle = pygame.sprite.spritecollide(self, self.paddles, False)[0].rect
             if abs(self.rect.right - collision_paddle.left) < 10 and self.speed_x > 0:
                 self.speed_x *= -1
+                self.collision_count += 1
             if abs(self.rect.left - collision_paddle.right) < 10 and self.speed_x < 0:
                 self.speed_x *= -1
+                self.collision_count += 1
             if abs(self.rect.top - collision_paddle.bottom) < 10 and self.speed_y < 0:
                 self.rect.top = collision_paddle.bottom
                 self.speed_y *= -1
@@ -58,10 +62,23 @@ class Ball(Block):
                 self.rect.bottom = collision_paddle.top
                 self.speed_y *= -1
 
+        if self.collision_count == 5:
+
+            if self.speed_y > 0:
+                self.speed_y += 0.5
+            else: self.speed_y -= 0.5
+            if self.speed_x > 0:
+                self.speed_x += 0.5
+            else: self.speed_x -= 0.5
+            self.collision_count = 0
+
+
+
+
     def reset_ball(self):
         self.active = False
-        self.speed_x *= random.choice((-1, 1))
-        self.speed_y *= random.choice((-1, 1))
+        self.speed_x = 5.5 * random.choice((-1, 1))
+        self.speed_y = 5.5 * random.choice((-1, 1))
         self.score_time = pygame.time.get_ticks()
         self.rect.center = (screen_width / 2, screen_height / 2)
         pygame.mixer.Sound.play(score_sound)
@@ -129,6 +146,7 @@ class GameMenager:
             self.ball_group.sprite.reset_ball()
 
     def draw_score(self):
+
         player_score = basic_font.render(str(self.player_score), True, accent_color)
         opponent_score = basic_font.render(str(self.opponont_score), True, accent_color)
 
@@ -158,7 +176,7 @@ middle_strip = pygame.Rect(screen_width/2 - 2, 0, 4, screen_height)
 
 # Game objects
 player = Player('Paddle.png', screen_width - 15, screen_height / 2, 5)
-opponent = Opponent('Paddle.png', 15, screen_width / 2, 5)
+opponent = Opponent('Paddle.png', 15, screen_width / 2, 7)
 paddle_group = pygame.sprite.Group()
 paddle_group.add(player)
 paddle_group.add(opponent)

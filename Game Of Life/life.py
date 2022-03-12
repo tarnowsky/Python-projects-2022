@@ -99,7 +99,7 @@ class GameOfLife:
         for index_row, row in enumerate(MAIN_BOARD):
             for index_nod, nod_state in enumerate(row):
                 if nod_state == 'X':
-                    nod = pygame.Rect(index_nod * 9,index_row * 9, 10.1, 10.1)
+                    nod = pygame.Rect(index_nod * 9,index_row * 9, 10, 10)
                     pygame.draw.rect(screen, alive_color, nod)
                     continue
                 nod = pygame.Rect(index_nod * 9, index_row * 9, NodSideLen, NodSideLen)

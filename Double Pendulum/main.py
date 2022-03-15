@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 
 screen_width = 900
 screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height), 0, 1)
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
 bg_color = 227, 218, 201
 
 x_offset = screen_width / 2
@@ -17,9 +17,11 @@ y_offset = 200
 
 pendulum_color = pygame.Color(255, 0, 0)
 pendulum_color2 = pygame.Color(51, 29, 222)
+# pendulum_color3 = pygame.Color(72, 156, 30)
 
 path_color = 230, 55, 99
 path_color2 = 94, 77, 232
+# path_color3 = 83, 201, 24
 
 class FormulaImplicator():
     def __init__(self, m1, r1,
@@ -109,7 +111,7 @@ class PendulumDrawing():
 
         self.path_len += 1
 
-        if self.path_len == 50:
+        if self.path_len == 1000:
             del self.path_coords[0]
             self.path_len -= 1
 
@@ -126,10 +128,18 @@ r3 = 150
 r4 = 150
 m3 = 10
 m4 = 10
-a3 = pi / 1.5
-a4 = pi / 2.01
+a3 = -pi / 1.5
+a4 = -pi / 2.5
+
+# r5 = 150
+# r6 = 150
+# m5 = 10
+# m6 = 10
+# a5 = -pi / 2
+# a6 = pi / 2.001
 
 a1_v = a2_v = a1_a = a2_a = a3_v = a4_v = a3_a = a4_a = 0
+# a5_v = a6_v = a5_a = a6_a = 0
 
 g = 0.1
 
@@ -139,12 +149,16 @@ startPos = (x_offset, y_offset) # Translate (0, 0)
 
 acceleration_calc = FormulaImplicator(m1, r1, m2, r2, g)
 acceleration_calc2 = FormulaImplicator(m3, r3, m4, r4, g)
+# acceleration_calc3 = FormulaImplicator(m5, r5, m6, r6, g)
 
 first_pendulum = PendulumDrawing(r1, m1, a1)
 second_pendulum = PendulumDrawing(r2, m2, a2, False, a1)
 
 third_pendulum = PendulumDrawing(r3, m3, a3)
 fourth_pendulum = PendulumDrawing(r4, m4, a4, False, a3)
+
+# fifth_pendulum = PendulumDrawing(r5, m5, a5)
+# sixth_pendulum = PendulumDrawing(r6, m6, a6, False, a5)
 
 
 if __name__ == '__main__':
@@ -164,6 +178,10 @@ if __name__ == '__main__':
         third_pendulum.drawPendulum(a3, 0, startPos, pendulum_color2)
         fourth_pendulum.drawPendulum(a4, a3, third_pendulum.coords_calc(a3), pendulum_color2)
         fourth_pendulum.drawPath(path_color2)
+
+        # fifth_pendulum.drawPendulum(a5, 0, startPos, pendulum_color3)
+        # sixth_pendulum.drawPendulum(a6, a5, third_pendulum.coords_calc(a5), pendulum_color3)
+        # sixth_pendulum.drawPath(path_color3)
         
         a1_a = acceleration_calc.acceleration(a1, a1_v, a2, a2_v)[0]
         a2_a = acceleration_calc.acceleration(a1, a1_v, a2, a2_v)[1]
@@ -189,8 +207,21 @@ if __name__ == '__main__':
         a3 *= friction
         a4 *= friction
 
+        # a5_a = acceleration_calc2.acceleration(a5, a5_v, a6, a6_v)[0]
+        # a6_a = acceleration_calc2.acceleration(a5, a5_v, a6, a6_v)[1]
+        #
+        # a5_v = acceleration_calc2.velocity(a5_v, a5_a)
+        # a6_v = acceleration_calc2.velocity(a6_v, a6_a)
+        #
+        # a5 = acceleration_calc2.angle(a5, a5_v)
+        # a6 = acceleration_calc2.angle(a6, a6_v)
+        #
+        # a5 *= friction
+        # a6 *= friction
+
         acceleration_calc = FormulaImplicator(m1, r1, m2, r2, g)
         acceleration_calc2 = FormulaImplicator(m3, r3, m4, r4, g)
+        # acceleration_calc3 = FormulaImplicator(m5, r5, m6, r6, g)
 
         pygame.display.flip()
         clock.tick(120)

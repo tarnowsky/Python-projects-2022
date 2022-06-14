@@ -198,4 +198,4 @@ if __name__ == "__main__":
             generacja += 1
 
         pygame.display.flip()
-        clock.tick(120)
+        clock.tick(60)

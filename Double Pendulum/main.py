@@ -1,7 +1,5 @@
 from cmath import pi
-from logging import setLogRecordFactory
 from math import sin, cos
-from tkinter import W
 import pygame, sys
 
 pygame.init()
@@ -121,15 +119,15 @@ r1 = 150
 r2 = 150
 m1 = 10
 m2 = 10
-a1 = pi / 1.5
+a1 = pi / 2
 a2 = pi / 2
 
 r3 = 150
 r4 = 150
 m3 = 10
 m4 = 10
-a3 = -pi / 1.5
-a4 = -pi / 2.5
+a3 = pi / 2
+a4 = pi / 2.0001
 
 # r5 = 150
 # r6 = 150
